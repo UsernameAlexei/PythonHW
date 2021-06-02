@@ -1,12 +1,13 @@
+import time
 import unittest
-from Testing_Coverage_task import  cached, my_range
+from Testing_Coverage_task import cached, CACHE, my_range
 
-#Test_Task 1
+# Test_Task 1
 class Test_task1_my_range(unittest.TestCase):
 
     def test_generation_all_positive(self):
         result = list(my_range(5, 11, 2))
-        self.assertEqual(result, [5,7,9])
+        self.assertEqual(result, [5, 7, 9])
 
     def test_generation_all_negative(self):
         result = list(my_range(-5, -11, -2))
@@ -38,32 +39,39 @@ class Test_task1_my_range(unittest.TestCase):
         self.assertEqual(result, 'Type error, enter numeric values')
 
     def test_format(self):
-        result = list(my_range(1,2,3,4))
+        result = list(my_range(1, 2, 3, 4))
         self.assertEqual(result, 'Takes from 0 to 3 positional arguments')
 
 
-#Test_Task2
+# Test_Task2
 @cached(use_cache=True)
 def mul(x):
-    return x*2
+    time.sleep(2)
+    return x * 2
 
 class Test_task2_cached(unittest.TestCase):
 
     def test_caching(self):
-        result = mul(2)
-        self.assertEqual(result, f'caching 4')
+        mul(2)
+        result = CACHE
+        self.assertEqual(result, {(2,): 4})
 
     def test_from_cache(self):
-        result = mul(2)
-        self.assertEqual(result, f'from cache 4')
+        CACHE.clear()
+        start_time = time.time()
+        mul(2)
+        call_mul_1 = time.time() - start_time
+
+        start_time = time.time()
+        mul(2)
+        call_mul_2 = time.time() - start_time
+        assert (call_mul_1 > call_mul_2)
 
     def test_caching_str(self):
-        result = mul('str')
-        self.assertEqual(result, f'caching strstr')
-
-    def test_from_cache_str(self):
-        result = mul('str')
-        self.assertEqual(result, f'from cache strstr')
+        CACHE.clear()
+        mul('str')
+        result = CACHE
+        self.assertEqual(result, {('str',): 'strstr'})
 
     # negative test
     def test_caching_empty(self):
