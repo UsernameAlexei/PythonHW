@@ -1,4 +1,4 @@
-C:\ProgramData\Anaconda3\python.exe "C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py"
+Analysis of tests added to file Profiling_task_time output
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
