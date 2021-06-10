@@ -3,123 +3,170 @@ Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Pro
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    16     71.6 MiB     71.6 MiB           1   @profile
-    17                                         def football_1(x=None):
-    18     71.6 MiB      0.0 MiB           1       if x is None:
-    19                                                 return None
-    20                                             else:
-    21     72.1 MiB      0.5 MiB           1           df = pd.read_csv('football_results.csv')
-    22     72.4 MiB      0.3 MiB           1           df_dict = df.to_dict()
-    23     72.4 MiB      0.0 MiB           1           return df_dict[x]
+    17     71.6 MiB     71.6 MiB           1   @profile
+    18                                         def read_write_1(x=None, data=None):
+    19     71.6 MiB      0.0 MiB           1       if x is None:
+    20                                                 return None
+    21                                             else:
+    22     72.0 MiB      0.4 MiB           1           df = pd.read_csv(data)
+    23     72.2 MiB      0.1 MiB           1           df_dict = df.to_dict()
+    24     72.2 MiB      0.0 MiB           1           return df_dict[x]
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    27     72.4 MiB     72.4 MiB           1   @profile
-    28                                         def football_2(x=None):
-    29     72.4 MiB      0.0 MiB           1       d = {}
-    30     72.4 MiB      0.0 MiB           1       if x is None:
-    31                                                 return None
-    32                                             else:
-    33     72.4 MiB      0.0 MiB           1           reader = csv.DictReader(open('football_results.csv'))
-    34     72.4 MiB      0.0 MiB         188           for i, s in enumerate(reader):
-    35     72.4 MiB      0.0 MiB         187               d[i] = s[x]
-    36     72.4 MiB      0.0 MiB           1       return d
+    28     72.2 MiB     72.2 MiB           1   @profile
+    29                                         def read_write_2(x=None, data=None):
+    30     72.2 MiB      0.0 MiB           1       d = {}
+    31     72.2 MiB      0.0 MiB           1       if x is None:
+    32                                                 return None
+    33                                             else:
+    34     72.2 MiB      0.0 MiB           1           reader = csv.DictReader(open(data))
+    35     72.2 MiB      0.0 MiB           3           for i, s in enumerate(reader):
+    36     72.2 MiB      0.0 MiB           2               d[i] = s[x]
+    37     72.2 MiB      0.0 MiB           1       return d
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    40     72.4 MiB     72.4 MiB           1   @profile
-    41                                         def list_transformation_1(City):
-    42     72.4 MiB      0.0 MiB           1       City_1 = []
-    43     72.4 MiB      0.0 MiB          23       for i in City:
-    44     72.4 MiB      0.0 MiB          22           City_1.append(i.upper())
-    45     72.4 MiB      0.0 MiB           1       return City_1
+    41     72.2 MiB     72.2 MiB           1   @profile
+    42                                         def list_transformation_1(cities):
+    43     72.2 MiB      0.0 MiB           1       cities_1 = []
+    44     72.2 MiB      0.0 MiB           6       for i in cities:
+    45     72.2 MiB      0.0 MiB           5           cities_1.append(i.upper())
+    46     72.2 MiB      0.0 MiB           1       return cities_1
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    49     72.4 MiB     72.4 MiB           1   @profile
-    50                                         def list_transformation_2(City):
-    51     72.4 MiB      0.0 MiB          25       City_2 = [x.upper() for x in City]
-    52     72.4 MiB      0.0 MiB           1       return City_2
+    50     72.2 MiB     72.2 MiB           1   @profile
+    51                                         def list_transformation_2(cities):
+    52     72.2 MiB      0.0 MiB           8       cities_2 = [x.upper() for x in cities]
+    53     72.2 MiB      0.0 MiB           1       return cities_2
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    56     72.4 MiB     72.4 MiB           1   @profile
-    57                                         def list_transformation_3(City):
-    58     72.4 MiB      0.0 MiB          45       City_3 = list(map(lambda x: x.upper(), City))
-    59     72.4 MiB      0.0 MiB           1       return City_3
+    57     72.2 MiB     72.2 MiB           1   @profile
+    58                                         def list_transformation_3(cities):
+    59     72.2 MiB      0.0 MiB          11       cities_3 = list(map(lambda x: x.upper(), cities))
+    60     72.2 MiB      0.0 MiB           1       return cities_3
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    63     72.4 MiB     72.4 MiB           1   @profile
-    64                                         def bubble_sort(arr):
-    65     72.4 MiB      0.0 MiB          11       def swap(i, j):
-    66     72.4 MiB      0.0 MiB          10           arr[i], arr[j] = arr[j], arr[i]
-    67                                         
-    68     72.4 MiB      0.0 MiB           1       n = len(arr)
-    69     72.4 MiB      0.0 MiB           1       swapped = True
-    70                                         
-    71     72.4 MiB      0.0 MiB           1       x = -1
-    72     72.4 MiB      0.0 MiB           5       while swapped:
-    73     72.4 MiB      0.0 MiB           4           swapped = False
-    74     72.4 MiB      0.0 MiB           4           x = x + 1
-    75     72.4 MiB      0.0 MiB          30           for i in range(1, n - x):
-    76     72.4 MiB      0.0 MiB          26               if arr[i - 1] > arr[i]:
-    77     72.4 MiB      0.0 MiB          10                   swap(i - 1, i)
-    78     72.4 MiB      0.0 MiB          10                   swapped = True
-    79     72.4 MiB      0.0 MiB           1       return arr
+    64     72.2 MiB     72.2 MiB           1   @profile
+    65                                         def pd_sort_values(arr):
+    66     72.2 MiB      0.0 MiB           1       df = {}
+    67     72.2 MiB      0.0 MiB           1       df['number'] = arr
+    68     72.2 MiB      0.0 MiB           1       df = pd.DataFrame(df)
+    69     72.3 MiB      0.1 MiB           1       return df.sort_values(by='number')
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    83     72.4 MiB     72.4 MiB           1   @profile
-    84                                         def selection_sort(arr):
-    85     72.4 MiB      0.0 MiB          10       for i in range(len(arr)):
-    86     72.4 MiB      0.0 MiB           9           minimum = i
-    87                                         
-    88     72.4 MiB      0.0 MiB          45           for j in range(i + 1, len(arr)):
-    89     72.4 MiB      0.0 MiB          36               if arr[j] < arr[minimum]:
-    90                                                         minimum = j
-    91                                         
-    92     72.4 MiB      0.0 MiB           9           arr[minimum], arr[i] = arr[i], arr[minimum]
-    93                                         
-    94     72.4 MiB      0.0 MiB           1       return arr
+    73     72.3 MiB     72.3 MiB           1   @profile
+    74                                         def selection_sort(arr):
+    75     72.3 MiB      0.0 MiB          10       for i in range(len(arr)):
+    76     72.3 MiB      0.0 MiB           9           minimum = i
+    77                                         
+    78     72.3 MiB      0.0 MiB          45           for j in range(i + 1, len(arr)):
+    79     72.3 MiB      0.0 MiB          36               if arr[j] < arr[minimum]:
+    80     72.3 MiB      0.0 MiB           8                   minimum = j
+    81                                         
+    82     72.3 MiB      0.0 MiB           9           arr[minimum], arr[i] = arr[i], arr[minimum]
+    83                                         
+    84     72.3 MiB      0.0 MiB           1       return arr
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-    98     72.4 MiB     72.4 MiB           1   @profile
-    99                                         def unpacking_1(un_list):
-   100     72.4 MiB      0.0 MiB           7       up_1 = " ".join(" ".join(L) for L in un_list)
-   101     72.4 MiB      0.0 MiB           1       return up_1
+    88     72.3 MiB     72.3 MiB           1   @profile
+    89                                         def method_sorted(arr):
+    90     72.3 MiB      0.0 MiB           1       return sorted(arr)
 
 
 Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
 
 Line #    Mem usage    Increment  Occurences   Line Contents
 ============================================================
-   105     72.4 MiB     72.4 MiB           1   @profile
-   106                                         def unpacking_2(un_list):
-   107     72.4 MiB      0.0 MiB           1       up_2 = []
-   108     72.4 MiB      0.0 MiB           3       for i in un_list:
-   109     72.4 MiB      0.0 MiB           2           up_2 += i
-   110     72.4 MiB      0.0 MiB           1       return " ".join(up_2)
+    95     72.3 MiB     72.3 MiB           1   @profile
+    96                                         def count_list(l):
+    97     72.3 MiB      0.0 MiB           1       count = 0
+    98     72.3 MiB      0.0 MiB           4       for e in l:
+    99     72.3 MiB      0.0 MiB           3           if isinstance(e, list):
+   100                                                     count = count + 1 + count_list(e)
+   101     72.3 MiB      0.0 MiB           1       return count
 
+
+Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
+
+Line #    Mem usage    Increment  Occurences   Line Contents
+============================================================
+    95     72.3 MiB     72.3 MiB           1   @profile
+    96                                         def count_list(l):
+    97     72.3 MiB      0.0 MiB           1       count = 0
+    98     72.3 MiB      0.0 MiB           5       for e in l:
+    99     72.3 MiB      0.0 MiB           4           if isinstance(e, list):
+   100                                                     count = count + 1 + count_list(e)
+   101     72.3 MiB      0.0 MiB           1       return count
+
+
+Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
+
+Line #    Mem usage    Increment  Occurences   Line Contents
+============================================================
+    95     72.3 MiB     72.3 MiB           3   @profile
+    96                                         def count_list(l):
+    97     72.3 MiB      0.0 MiB           3       count = 0
+    98     72.3 MiB      0.0 MiB          12       for e in l:
+    99     72.3 MiB      0.0 MiB           9           if isinstance(e, list):
+   100     72.3 MiB      0.0 MiB           2               count = count + 1 + count_list(e)
+   101     72.3 MiB      0.0 MiB           3       return count
+
+
+Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
+
+Line #    Mem usage    Increment  Occurences   Line Contents
+============================================================
+   104     72.3 MiB     72.3 MiB           1   @profile
+   105                                         def unpacking_1(unpacking_list):
+   106     72.3 MiB      0.0 MiB           1       s = []
+   107     72.3 MiB      0.0 MiB           3       for i in range(count_list(unpacking_list)):
+   108     72.3 MiB      0.0 MiB           2           if i >= 1:
+   109     72.3 MiB      0.0 MiB           1               unpacking_list = s
+   110     72.3 MiB      0.0 MiB           1               s = []
+   111     72.3 MiB      0.0 MiB          11           for y in range(len(unpacking_list)):
+   112     72.3 MiB      0.0 MiB           9               try:
+   113     72.3 MiB      0.0 MiB          20                   for x in unpacking_list[y]:
+   114     72.3 MiB      0.0 MiB          11                       s.append(x)
+   115     72.3 MiB      0.0 MiB           3               except TypeError:
+   116     72.3 MiB      0.0 MiB           3                   s.append(unpacking_list[y])
+   117     72.3 MiB      0.0 MiB           1       return unpacking_list
+
+
+Filename: C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_memory.py
+
+Line #    Mem usage    Increment  Occurences   Line Contents
+============================================================
+   121     72.3 MiB     72.3 MiB           1   @profile
+   122                                         def unpacking_2(unpacking_list):
+   123     72.3 MiB      0.0 MiB          12       return [next_value for next_list in unpacking_list for next_value in next_list]
+
+
+
+Process finished with exit code 0
