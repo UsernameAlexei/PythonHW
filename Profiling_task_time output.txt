@@ -1,13 +1,57 @@
-C:\ProgramData\Anaconda3\python.exe "C:/Users/Алексей/Desktop/EPAM/EPAM Python stage 2/Profiling/Profiling_task_time.py"
-pandas time: 0.04797410000000002
-csv time: 0.007317000000000018
+1 Read and write
 
-list_transformation_time_1: 0.002524600000000099
-list_transformation_time_2: 0.001983300000000021
-list_transformation_time_3: 0.002881899999999993
+Pandas time:
+ 100k rows 0.361504
+ 1k rows   0.006133
 
-bubble_sort_time: 0.00118829999999992
-selection_sort_time: 0.005591800000000036
+CSV time:
+ 100k rows 0.392584
+ 1k rows   0.004096
 
-unpacking_time_1: 0.0007636000000000864
-unpacking_time_2: 0.0003927000000000236
+Functions using these modules occupy the same amount of memory, but
+CSV is faster to load data for smaller datasets (< 1K rows). Pandas is several times faster for larger datasets.
+
+
+2 List transformation
+
+list transformation 1 time:
+ 5 values  0.000684   
+ 5k values 0.475276
+
+list transformation 2 time:
+ 5 values  0.000667  
+ 5k values 0.348293
+
+list transformation 3 time:
+ 5 values  0.001024   
+ 5k values 0.511137
+
+
+Functions using these modules occupy the same amount of memory.
+Fastest "list transformation 2" with a List Comprehension. 
+"list transformation 1" takes 2nd place, it is slower due to append.
+"list transformation 3" with map works the longest, but most likely this is due to the constant call to lambda.
+In the case of List Comprehension, we only need a transformation.
+
+
+3 Sort              time 
+
+ pd sort_values     2.707479   
+ selection sort     0.044379
+ method sorted      0.001299
+ 
+
+
+Functions using these modules occupy the same amount of memory
+Method sorted () is the fastest, no need to reinvent bubble sort or selection sort - it's better to use the standard method.
+
+
+4 Unpacking
+
+ unpacking1 time  0.004438
+ unpacking2 time  0.000481
+
+
+The "unpacking_1" function using List Comprehension is faster than the "unpacking_1" function.
+The "unpacking_2" function has a more complex structure with 3 for and append loops.
+
