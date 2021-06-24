@@ -11,8 +11,6 @@ from datetime import datetime
 
 
 start_time = datetime.now()
-global RESULT
-RESULT = {'Download files': 0, 'Download fail': 0, 'Bytes loaded': 0}
 
 
 def createParser():
