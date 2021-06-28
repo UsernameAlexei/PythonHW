@@ -15,14 +15,10 @@ start_time = datetime.now()
 
 def createParser():
     parser = argparse.ArgumentParser()
-    # default='urllist.txt'
-    parser.add_argument('urls_file', nargs='?')
-    # default='thumbnails/'
-    parser.add_argument('-d', '--dir', nargs='?', type=str)
-    # default=4
-    parser.add_argument('-t', '--threads', nargs='?', type=int)
-    # default=128x128
-    parser.add_argument('-s', '--size', nargs='?')
+    parser.add_argument('urls_file', default='urllist.txt', nargs='?')
+    parser.add_argument('-d', '--dir', default='thumbnails/', nargs='?', type=str)
+    parser.add_argument('-t', '--threads', default=4, nargs='?', type=int)
+    parser.add_argument('-s', '--size', default='128x128', nargs='?')
 
     return parser
 
