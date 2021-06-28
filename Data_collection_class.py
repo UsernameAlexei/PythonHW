@@ -1,4 +1,6 @@
 import threading
+import time
+
 import keyboard
 import pyautogui
 
@@ -35,8 +37,3 @@ class Collection(threading.Thread):
         pyautogui.press('esc')
         self.counter -= 1
         threading.Thread.join(self)
-
-# a = Collection()
-# a.start()
-# time.sleep(5)
-# a.stop_collect()
