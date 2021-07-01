@@ -1,8 +1,6 @@
 import threading
 import time
-
 import keyboard
-import pyautogui
 
 
 # counting keystrokes
@@ -13,18 +11,16 @@ class Collection(threading.Thread):
         self.counter = 0
         self.running = False
 
+    def handler(self, even):
+        self.counter += 1
+
     def start_collect(self):
         self.running = True
-        not_pressed = True
 
+        keyboard.on_press(self.handler)
         while self.running:
-            keyboard.read_key()
-            if not_pressed:
-                self.counter += 1
-                print(self.counter)
-                not_pressed = False
-            else:
-                not_pressed = True
+            # just waiting small time for saving CPU time
+            time.sleep(0.01)
 
     def get_current_state(self):
         return self.counter
@@ -34,6 +30,5 @@ class Collection(threading.Thread):
 
     def stop_collect(self):
         self.running = False
-        pyautogui.press('esc')
-        self.counter -= 1
+        keyboard.unhook_all()
         threading.Thread.join(self)
