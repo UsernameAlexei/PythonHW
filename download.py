@@ -1,4 +1,5 @@
 import sys
+import time
 import urllib.request
 import argparse
 import os
@@ -7,6 +8,7 @@ from pathlib import Path
 from PIL import Image
 from datetime import datetime
 from threading import Lock
+from PIL import Image
 
 start_time = datetime.now()
 
@@ -35,10 +37,14 @@ def threads_type(flow):
 
 
 def size_type(image_size):
-    if image_size.find('x') and isinstance(image_size, str):
-        return image_size
-    else:
+    if image_size.find('x') == -1:
         raise argparse.ArgumentTypeError(f'Invalid value {image_size}, enter information in "128x128" format')
+    else:
+        size = image_size.split('x')
+        if size[0].isdigit() and size[1].isdigit():
+            return image_size
+        else:
+            raise argparse.ArgumentTypeError(f'Invalid value {image_size}, enter information in "128x128" format')
 
 
 def createParser():
@@ -66,9 +72,6 @@ def download_file(url, name):
         handle = urllib.request.urlopen(url)
         filepath = os.path.join(dirname, fname)
 
-        length_in_bytes = os.stat(filepath).st_size
-        SUM_BYTE += length_in_bytes
-
         with open(filepath, "wb") as f:
             while True:
                 chunk = handle.read(1024)
@@ -76,6 +79,7 @@ def download_file(url, name):
                     break
                 f.write(chunk)
         lock.acquire()
+        SUM_BYTE += os.stat(filepath).st_size
         DOWNLOAD_COMPLETE += 1
         lock.release()
         print(f'download file {fname} complete')
@@ -88,16 +92,18 @@ def download_file(url, name):
 
 # 128x128
 # Функция изменения размера изображений
-def resize():
-    new_size = namespace.size
-    new_size = new_size.split('x')
-    for item in dirs:
-        if os.path.isfile(path + item):
-            im = Image.open(path + item)
-            f, e = os.path.splitext(path + item)
-            imResize = im.convert('RGB')
-            imResize = imResize.resize((int(new_size[0]), int(new_size[1])), Image.ANTIALIAS)
-            imResize.save(f + '.jpg', 'JPEG', quality=90)
+def resize(image_name):
+    size = namespace.size
+    new_size = size.split('x')
+    try:
+        img = Image.open(f'{namespace.dir}{image_name}')
+        rgb_im = img.convert('RGB')
+        width = int(new_size[0])
+        height = int(new_size[1])
+        resized_img = rgb_im.resize((width, height), Image.ANTIALIAS)
+        resized_img.save(f'{namespace.dir}{image_name}')
+    except:
+        pass
 
 
 if __name__ == '__main__':
@@ -119,6 +125,7 @@ if __name__ == '__main__':
     DOWNLOAD_COMPLETE = 0
     DOWNLOAD_ERROR = 0
     SUM_BYTE = 0
+
     with ThreadPoolExecutor(max_workers=namespace.threads) as executor:
         f = executor.map(download_file, url, file_names)
 
@@ -126,17 +133,12 @@ if __name__ == '__main__':
     dirs = os.listdir(path)
 
     # Редактируем файлы
-    # files_name = os.listdir(path=namespace.dir)
     with ThreadPoolExecutor(max_workers=namespace.threads) as executor:
         x = executor.map(resize, file_names)
-        executor.submit(resize)
-
-    # Расчет общего количества байт
-    root_directory = Path(namespace.dir)
+        executor.submit(resize, file_names)
 
     print(f'Number of downloaded files: {DOWNLOAD_COMPLETE + DOWNLOAD_ERROR}\n'
           f'Number of downloaded bytes: {SUM_BYTE}\n'
           f'Number of requests completed with an error: {DOWNLOAD_ERROR}\n'
           f'Total execution time: {datetime.now() - start_time}')
 
-    # python download.py urllist.txt --dir=thumbnails/ --threads=4 --size=128x128
