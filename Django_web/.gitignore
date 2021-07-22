@@ -1,0 +1,4 @@
+# ignore .pyc files and __pycache__
+myfirst/__pycache__/
+myfirst/apps/articles/__pycache__/
+myfirst/apps/articles/migrations/__pycache__/
