@@ -1,7 +1,12 @@
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
+
 from .models import Article
+
+
+def home(request):
+    return render(request, 'articles/home_list.html')
 
 
 def index(request):
