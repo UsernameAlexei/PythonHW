@@ -27,7 +27,7 @@ def detail(request, article_id):
 
 def leave_comment(request, article_id):
     try:
-        a = Article.objects.get(id=article_id)
+        a = Article.DoesNotExist.get(id=article_id)
     except:
         raise Http404("Статья не найдена :(")
 
