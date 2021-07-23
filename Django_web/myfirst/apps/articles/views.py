@@ -19,7 +19,7 @@ def index(request):
 def detail(request, article_id):
     try:
         a = Article.objects.get(id=article_id)
-    except:
+    except Article.DoesNotExist:
         raise Http404("Статья не найдена :(")
 
     latest_comments_list = a.comment_set.order_by('-id')[:10]
@@ -30,8 +30,8 @@ def detail(request, article_id):
 
 def leave_comment(request, article_id):
     try:
-        a = Article.DoesNotExist.get(id=article_id)
-    except:
+        a = Article.objects.get(id=article_id)
+    except Article.DoesNotExist:
         raise Http404("Статья не найдена :(")
 
     a.comment_set.create(author_name=request.POST['name'],
