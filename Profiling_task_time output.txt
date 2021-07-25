@@ -1,0 +1,57 @@
+1 Read and write
+
+Pandas time:
+ 100k rows 0.361504
+ 1k rows   0.006133
+
+CSV time:
+ 100k rows 0.392584
+ 1k rows   0.004096
+
+Functions using these modules occupy the same amount of memory, but
+CSV is faster to load data for smaller datasets (< 1K rows). Pandas is several times faster for larger datasets.
+
+
+2 List transformation
+
+list transformation 1 time:
+ 5 values  0.000684   
+ 5k values 0.475276
+
+list transformation 2 time:
+ 5 values  0.000667  
+ 5k values 0.348293
+
+list transformation 3 time:
+ 5 values  0.001024   
+ 5k values 0.511137
+
+
+Functions using these modules occupy the same amount of memory.
+Fastest "list transformation 2" with a List Comprehension. 
+"list transformation 1" takes 2nd place, it is slower due to append.
+"list transformation 3" with map works the longest, but most likely this is due to the constant call to lambda.
+In the case of List Comprehension, we only need a transformation.
+
+
+3 Sort              time 
+
+ pd sort_values     2.707479   
+ selection sort     0.044379
+ method sorted      0.001299
+ 
+
+
+Functions using these modules occupy the same amount of memory
+Method sorted () is the fastest, no need to reinvent bubble sort or selection sort - it's better to use the standard method.
+
+
+4 Unpacking
+
+ unpacking1 time  0.004438
+ unpacking2 time  0.000481
+
+
+The "unpacking_1" function using List Comprehension is faster than the "unpacking_1" function.
+The "unpacking_2" function has a more complex structure with 3 for and append loops.
+
